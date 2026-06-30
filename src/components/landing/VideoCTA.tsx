@@ -35,7 +35,7 @@ export default function VideoCTA({ onNavigate }: VideoCTAProps) {
           Partner with Logiko for end-to-end supply chain solutions that scale with your business.
         </p>
         <button
-          onClick={() => onNavigate('dashboard')}
+          onClick={() => onNavigate('contact')}
           className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-heading font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:shadow-xl hover:shadow-primary/40"
         >
           Get a Quote

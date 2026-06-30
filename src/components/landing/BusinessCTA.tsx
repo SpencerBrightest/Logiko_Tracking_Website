@@ -27,7 +27,7 @@ export default function BusinessCTA({ onNavigate }: BusinessCTAProps) {
             ))}
           </div>
           <button
-            onClick={() => onNavigate('dashboard')}
+            onClick={() => onNavigate('contact')}
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-heading font-semibold px-7 py-3.5 rounded-lg transition-all duration-200 w-fit hover:shadow-lg hover:shadow-primary/30"
           >
             Learn More

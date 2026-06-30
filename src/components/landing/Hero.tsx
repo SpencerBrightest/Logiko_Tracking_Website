@@ -57,13 +57,13 @@ export default function Hero({ onNavigate }: HeroProps) {
 
           <div className="flex flex-wrap items-center gap-6">
             <button
-              onClick={() => onNavigate('track')}
+              onClick={() => onNavigate('public_track')}
               className="bg-primary hover:bg-primary-dark text-white font-heading font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
             >
               Track Shipment
             </button>
             <button
-              onClick={() => onNavigate('dashboard')}
+              onClick={() => onNavigate('contact')}
               className="border border-white/30 hover:border-white text-white font-heading font-medium px-8 py-4 rounded-lg transition-all duration-200 hover:bg-white/5"
             >
               Get a Quote
@@ -72,18 +72,21 @@ export default function Hero({ onNavigate }: HeroProps) {
         </div>
 
         {/* Call button */}
-        <div className="absolute right-16 bottom-32 hidden xl:flex flex-col items-center gap-3">
+        <a
+          href="tel:+18005644566"
+          className="absolute right-16 bottom-32 hidden xl:flex flex-col items-center gap-3 group"
+        >
           <div className="relative">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 hover:bg-primary-dark transition-colors cursor-pointer">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:bg-primary-dark transition-colors cursor-pointer">
               <Phone className="w-7 h-7 text-white" />
             </div>
             <div className="absolute inset-0 rounded-full border-2 border-primary/40 scale-125 pulse-dot" />
           </div>
           <div className="text-center">
             <p className="text-gray-400 text-xs font-body">Make a Call</p>
-            <p className="text-white text-sm font-heading font-semibold">+1 800 LOGIKO</p>
+            <p className="text-white text-sm font-heading font-semibold group-hover:text-primary transition-colors">+1 800 LOGIKO</p>
           </div>
-        </div>
+        </a>
       </div>
     </section>
   );

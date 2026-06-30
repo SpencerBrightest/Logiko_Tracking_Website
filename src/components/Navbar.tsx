@@ -1,24 +1,38 @@
 import { useState, useEffect } from 'react';
 import {
-  Truck, Search, ShoppingCart, Bell, Menu, X, ChevronDown
+  Truck, Search, Bell, Menu, X, User, LogOut
 } from 'lucide-react';
 
-const navLinks = ['Home', 'Pages', 'Services', 'Projects', 'News', 'Contact'];
+const navLinks = ['Home', 'Services', 'News', 'Contact'];
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
   currentPage: string;
+  isAuthenticated: boolean;
+  onLogout: () => void;
 }
 
-export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
+export default function Navbar({ onNavigate, currentPage, isAuthenticated, onLogout }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 60);
+    const handler = () => setScrolled(window.scrollY > 60 || currentPage !== 'landing');
     window.addEventListener('scroll', handler);
+    // If not on landing page, always show solid background
+    setScrolled(window.scrollY > 60 || currentPage !== 'landing');
     return () => window.removeEventListener('scroll', handler);
-  }, []);
+  }, [currentPage]);
+
+  const handleNavClick = (link: string) => {
+    setMenuOpen(false);
+    if (link === 'Home') onNavigate('landing');
+    else if (link === 'News') onNavigate('news');
+    else if (link === 'Contact') onNavigate('contact');
+    else if (link === 'Services') {
+      onNavigate('services');
+    }
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -41,13 +55,10 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
           {navLinks.map((link) => (
             <li key={link}>
               <button
-                onClick={() => link === 'Home' && onNavigate('landing')}
+                onClick={() => handleNavClick(link)}
                 className="text-gray-300 hover:text-white text-sm font-body font-medium transition-colors duration-200 flex items-center gap-1 group"
               >
                 {link}
-                {(link === 'Pages' || link === 'Services') && (
-                  <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100" />
-                )}
               </button>
             </li>
           ))}
@@ -58,17 +69,58 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
           <button className="text-gray-300 hover:text-white transition-colors">
             <Search className="w-5 h-5" />
           </button>
-          <button className="text-gray-300 hover:text-white transition-colors relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full" />
-          </button>
-          <button
-            onClick={() => onNavigate('dashboard')}
-            className="bg-primary hover:bg-primary-dark text-white text-sm font-heading font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2"
-          >
-            <Truck className="w-4 h-4" />
-            Track a Shipment
-          </button>
+          
+          {isAuthenticated ? (
+            <>
+              <button className="text-gray-300 hover:text-white transition-colors relative" onClick={() => onNavigate('dashboard')}>
+                <Bell className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full" />
+              </button>
+              <button 
+                onClick={() => onNavigate('dashboard')}
+                className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <User className="w-5 h-5" />
+                <span className="text-sm font-body font-medium">Dashboard</span>
+              </button>
+              <button 
+                onClick={onLogout}
+                className="text-gray-300 hover:text-primary transition-colors"
+                title="Log out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => onNavigate('public_track')}
+                className="bg-primary hover:bg-primary-dark text-white text-sm font-heading font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2 ml-2"
+              >
+                <Truck className="w-4 h-4" />
+                Track a Shipment
+              </button>
+            </>
+          ) : (
+            <>
+              <button 
+                onClick={() => onNavigate('login')}
+                className="text-gray-300 hover:text-white text-sm font-body font-medium transition-colors"
+              >
+                Log In
+              </button>
+              <button 
+                onClick={() => onNavigate('signup')}
+                className="bg-white/10 hover:bg-white/20 text-white text-sm font-body font-medium px-4 py-2 rounded-lg transition-colors"
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => onNavigate('login')}
+                className="bg-primary hover:bg-primary-dark text-white text-sm font-heading font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-primary/30 flex items-center gap-2 ml-2"
+              >
+                <Truck className="w-4 h-4" />
+                Track a Shipment
+              </button>
+            </>
+          )}
         </div>
 
         {/* Mobile menu toggle */}
@@ -87,20 +139,51 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
             <button
               key={link}
               className="block w-full text-left text-gray-300 hover:text-white py-3 text-sm font-body border-b border-white/5"
-              onClick={() => {
-                setMenuOpen(false);
-                if (link === 'Home') onNavigate('landing');
-              }}
+              onClick={() => handleNavClick(link)}
             >
               {link}
             </button>
           ))}
-          <button
-            onClick={() => { onNavigate('dashboard'); setMenuOpen(false); }}
-            className="mt-4 w-full bg-primary text-white text-sm font-heading font-semibold px-5 py-3 rounded-lg"
-          >
-            Track a Shipment
-          </button>
+          
+          <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-3">
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => { onNavigate('dashboard'); setMenuOpen(false); }}
+                  className="w-full text-left text-gray-300 hover:text-white py-2 text-sm font-body flex items-center gap-2"
+                >
+                  <User className="w-4 h-4" /> Dashboard
+                </button>
+                <button
+                  onClick={() => { onLogout(); setMenuOpen(false); }}
+                  className="w-full text-left text-gray-300 hover:text-white py-2 text-sm font-body flex items-center gap-2"
+                >
+                  <LogOut className="w-4 h-4" /> Log out
+                </button>
+                <button
+                  onClick={() => { onNavigate('public_track'); setMenuOpen(false); }}
+                  className="w-full bg-primary text-white text-sm font-heading font-semibold px-5 py-3 rounded-lg flex items-center justify-center gap-2"
+                >
+                  <Truck className="w-4 h-4" /> Track a Shipment
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => { onNavigate('login'); setMenuOpen(false); }}
+                  className="w-full text-center text-white bg-white/10 hover:bg-white/20 py-3 rounded-lg text-sm font-body font-medium transition-colors"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => { onNavigate('login'); setMenuOpen(false); }}
+                  className="w-full bg-primary text-white text-sm font-heading font-semibold px-5 py-3 rounded-lg flex items-center justify-center gap-2"
+                >
+                  <Truck className="w-4 h-4" /> Track a Shipment
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>

@@ -11,7 +11,7 @@ export default function TrackBar({ onNavigate }: TrackBarProps) {
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
-    onNavigate('track');
+    onNavigate('public_track');
   };
 
   return (

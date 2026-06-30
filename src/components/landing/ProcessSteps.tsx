@@ -23,9 +23,9 @@ const steps = [
 
 export default function ProcessSteps() {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="text-center mb-12">
           <span className="inline-flex items-center gap-2 text-primary text-xs font-heading font-semibold uppercase tracking-widest mb-4">
             <span className="w-6 h-0.5 bg-primary" />
             How It Works

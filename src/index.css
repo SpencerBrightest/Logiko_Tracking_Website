@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Animated dotted route line */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.route-dash {
+  animation: dash 1.2s linear infinite;
+}
+
+/* Loading bar */
+@keyframes loadProgress {
+  0% { width: 0%; }
+  20% { width: 25%; }
+  50% { width: 55%; }
+  75% { width: 78%; }
+  90% { width: 92%; }
+  100% { width: 100%; }
+}
+
+.loading-bar {
+  animation: loadProgress 2.2s ease-in-out forwards;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Pulse dot */
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.pulse-dot {
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+/* Map route animation */
+@keyframes drawRoute {
+  from { stroke-dashoffset: 300; }
+  to { stroke-dashoffset: 0; }
+}
+
+.draw-route {
+  stroke-dasharray: 300;
+  animation: drawRoute 2s ease forwards;
+}
+
+/* Chart line draw */
+@keyframes lineGrow {
+  from { stroke-dashoffset: 600; }
+  to { stroke-dashoffset: 0; }
+}
+
+.line-grow {
+  stroke-dasharray: 600;
+  animation: lineGrow 1.8s ease forwards 0.3s;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #10141F;
+}
+::-webkit-scrollbar-thumb {
+  background: #E63946;
+  border-radius: 3px;
+}

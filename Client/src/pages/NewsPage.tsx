@@ -44,17 +44,17 @@ export default function NewsPage({ onNavigate }: { onNavigate: (page: string) =>
         </svg>
 
         <div className="relative max-w-7xl mx-auto px-6 pb-20 pt-40 w-full fade-in text-center flex flex-col items-center justify-center">
-          <span className="inline-flex items-center gap-2 text-primary text-xs font-heading font-semibold uppercase tracking-widest mb-5">
-            <span className="w-6 h-0.5 bg-primary" />
+          <span className="inline-flex items-center gap-2 text-primary text-xs font-heading font-semibold uppercase tracking-widest mb-5 font-size 6px">
+            {/* <span className="w-6 h-0.5 bg-primary" /> */}
             Latest Updates
-            <span className="w-6 h-0.5 bg-primary" />
+            {/* <span className="w-6 h-0.5 bg-primary" /> */}
           </span>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 max-w-3xl">
             News &amp;<br />
             <span className="text-primary">Industry Insights</span>
           </h1>
-          <p className="text-gray-300 text-base md:text-lg font-body leading-relaxed max-w-xl mx-auto">
-            Logistics trends, supply chain intelligence, company milestones, and global trade updates — all in one place.
+          <p className="text-black-800-bold text-base  md:text-lg font-body leading-relaxed max-w-xl mx-auto">
+            Logistics trends, supply chain intelligence, company milestones, and global trade updates  all in one place.
           </p>
         </div>
       </div>
